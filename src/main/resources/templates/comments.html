@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+
+        h4 {
+            color: green;
+        }
+
+        #comments-table {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            width: 100%;
+            font-size: 8pt;
+        }
+
+        #comments-table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: cornflowerblue;
+            color: white;
+        }
+
+        #comments-table td, #comments-table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #comments-table tr:nth-child(even){background-color: #f2f2f2;}
+
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+    <h4 style="text-align: center">This page is done for Spring Reactive and Mongo DB</h4>
+    <div class="table-responsive">
+        <table class="table" id="comments-table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Message</th>
+                <th>Created Date</th>
+                <th>Subscriber</th>
+                <th>Is Liked?</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    var evtSource = new EventSource("http://localhost:8080/comments");
+    evtSource.onmessage = function (event) {
+        var data = JSON.parse(event.data);
+        var table = document.getElementById("comments-table");
+        var row = table.insertRow(1);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+
+        cell1.innerHTML = '<td>' + data.id + '</td>';
+        cell2.innerHTML = '<td>' + data.message + '</td>';
+        cell3.innerHTML = '<td>' + data.createdTime + '</td>';
+        cell4.innerHTML = '<td>' + data.subscriber + '</td>';
+        cell5.innerHTML = '<td>' + data.liked + '</td>';
+    }
+</script>
+
+</body>
+</html>
