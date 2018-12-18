@@ -46,7 +46,7 @@ Working image as seen:
 ```
 6379 is the standart port for redis.
 
-### Running Project
+### Running the Project
 
 After installing required tools, we can run project and see what's going on. This project works on 8080 port and comment generator project works on 8081 port. Our purpose is to get data from webflux-comment-service and save it to mongodb and redis, finally show them on some webpage. [http://localhost:8080](http://localhost:8080) is the home page.
 
